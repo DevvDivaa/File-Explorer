@@ -1,3 +1,4 @@
+const API = "https://file-explorer-bgv4.onrender.com";
 let currentPath = '';
 let historyStack = [];
 let currentItems = [];
@@ -8,25 +9,25 @@ const breadcrumbEl = document.getElementById('breadcrumb');
 const searchBox = document.getElementById('searchBox');
 
 async function apiList(p) {
-  const res = await fetch(`/api/list?path=${encodeURIComponent(p)}`);
+  const res = await fetch(`${API}/api/list?path=${encodeURIComponent(p)}`);
   return res.json();
 }
 async function apiMkdir(p, name) {
-  const res = await fetch('/api/mkdir', {
+  const res = await fetch(`${API}/api/mkdir`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ path: p, name }),
   });
   return res.json();
 }
 async function apiDelete(p) {
-  const res = await fetch('/api/delete', {
+  const res = await fetch(`${API}/api/delete`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ path: p }),
   });
   return res.json();
 }
 async function apiRename(p, newName) {
-  const res = await fetch('/api/rename', {
+ const res = await fetch(`${API}/api/rename`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ path: p, newName }),
   });
@@ -109,7 +110,7 @@ function renderList(items) {
     row.querySelector('[data-action="delete"]').addEventListener('click', () => deleteItem(fullPath, item.name));
     const dlBtn = row.querySelector('[data-action="download"]');
     if (dlBtn) dlBtn.addEventListener('click', () => {
-      window.location.href = `/api/download?path=${encodeURIComponent(fullPath)}`;
+      window.location.href = `${API}/api/download?path=${encodeURIComponent(fullPath)}`;
     });
 
     fileListEl.appendChild(row);
@@ -207,7 +208,7 @@ document.getElementById('fileInput').addEventListener('change', async (e) => {
   if (!file) return;
   const formData = new FormData();
   formData.append('file', file);
-  const res = await fetch(`/api/upload?path=${encodeURIComponent(currentPath)}`, {
+  const res = await fetch(`${API}/api/upload?path=${encodeURIComponent(currentPath)}`, {
     method: 'POST', body: formData,
   });
   const data = await res.json();
