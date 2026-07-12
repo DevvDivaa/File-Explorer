@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Explorer</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="nf-app">
+
+  <aside class="nf-sidebar">
+    <div class="nf-brand">
+      <i class="bi bi-folder2-open"></i>
+      <span>File Explorer</span>
+    </div>
+    <nav class="nf-nav">
+      <button class="nf-nav-item active" data-goto=""><i class="bi bi-house-door"></i> Home</button>
+      <button class="nf-nav-item" data-goto="Documents"><i class="bi bi-file-earmark-text"></i> Documents</button>
+      <button class="nf-nav-item" data-goto="Images"><i class="bi bi-image"></i> Images</button>
+    </nav>
+    <div class="nf-sidebar-footer">
+      <small>Simple File Explorer App</small>
+    </div>
+  </aside>
+
+  <main class="nf-main">
+
+    <div class="nf-toolbar">
+      <div class="nf-toolbar-left">
+        <button class="nf-icon-btn" id="btnBack" title="Back"><i class="bi bi-arrow-left"></i></button>
+        <button class="nf-icon-btn" id="btnUp" title="Up one level"><i class="bi bi-arrow-90deg-up"></i></button>
+        <nav aria-label="breadcrumb" class="nf-breadcrumb-wrap">
+          <ol class="breadcrumb mb-0" id="breadcrumb"></ol>
+        </nav>
+      </div>
+      <div class="nf-toolbar-right">
+        <input type="text" id="searchBox" class="form-control form-control-sm nf-search" placeholder="Search this folder...">
+        <button class="btn btn-sm nf-btn-outline" id="btnNewFolder"><i class="bi bi-folder-plus"></i> New Folder</button>
+        <button class="btn btn-sm nf-btn-solid" id="btnUpload"><i class="bi bi-upload"></i> Upload</button>
+        <input type="file" id="fileInput" hidden>
+      </div>
+    </div>
+
+    <div class="nf-listing">
+      <div class="nf-list-header">
+        <span class="col-name">Name</span>
+        <span class="col-size">Size</span>
+        <span class="col-modified">Modified</span>
+        <span class="col-actions">Actions</span>
+      </div>
+      <div id="fileList" class="nf-list-body">
+      </div>
+      <div id="emptyState" class="nf-empty d-none">
+        <i class="bi bi-inbox"></i>
+        <p>This folder is empty</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal fade" id="modalNewFolder" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content nf-modal">
+      <div class="modal-header">
+        <h6 class="modal-title"><i class="bi bi-folder-plus"></i> Create New Folder</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="newFolderName" class="form-control" placeholder="Folder name">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-sm nf-btn-solid" id="confirmNewFolder">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalRename" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content nf-modal">
+      <div class="modal-header">
+        <h6 class="modal-title"><i class="bi bi-pencil"></i> Rename</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="renameInput" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-sm nf-btn-solid" id="confirmRename">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="nfToast" class="toast align-items-center border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body" id="nfToastBody">Message</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
